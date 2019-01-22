@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./jquery-3.3.1.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="http://localhost:3000/testJson/add" method="post" id="myForm" target="frame1">
+        <input type="text" name='id' value='123123'>
+        <input type="text" name='name' value='123123'>
+        <input type="text" name='age' value='123123'>
+        <button type='submit'>提交</button>
+    </form>
+    <iframe name="frame1" frameborder="0" id="frame" style='display:none;'></iframe>
+    <button id='add'>add</button>
+    <button id='delet'>delete</button>
+    <button id='change'>change</button>
+    <button id='get'>get</button>
+
+    <script>
+        const add = document.querySelector('#add');
+        const delet = document.querySelector('#delet');
+        const change = document.querySelector('#change');
+        const get = document.querySelector('#get');
+
+        add.onclick = () => {
+            addData();
+        }
+        delet.onclick = () => {
+            deletData();
+        }
+        change.onclick = () => {
+            changeData();
+        }
+        get.onclick = () => {
+            getData();
+        }
+
+        function addData() {
+            $.ajax({
+                type: 'POST',
+                url: "http://localhost:3000/testJson/add",
+
+                data: {
+                    "id": $('input[name=id]').val(),
+                    "name": $('input[name=name]').val(),
+                    "age": $('input[name=age]').val()
+                },
+                success: function (data) {
+                    console.log('success', data);
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            })
+        };
+
+        function deletData() {
+            $.ajax({
+                type: 'post',
+                url: "http://localhost:3000/testJson/delete",
+
+                data: {
+                    "id": $('input[name=id]').val(),
+                    "name": $('input[name=name]').val(),
+                    "age": $('input[name=age]').val()
+                },
+                success: function (data) {
+                    console.log('success', data);
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            })
+        };
+
+        function changeData() {
+            $.ajax({
+                type: 'post',
+                url: "http://localhost:3000/testJson/change",
+
+                data: {
+                    "id": $('input[name=id]').val(),
+                    "name": $('input[name=name]').val(),
+                    "age": $('input[name=age]').val()
+                },
+                success: function (data) {
+                    console.log('success', data);
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            })
+        };
+
+        function getData() {
+            $.ajax({
+                type: 'GET',
+                url: "http://localhost:3000/testJson/getData",
+                // data: {},
+                success: function (data) {
+                    console.log('success', data);
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            })
+        };
+    </script>
+</body>
+
+</html>
