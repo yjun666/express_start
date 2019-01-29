@@ -22,6 +22,16 @@
     <div class="content"></div>
     <button class="btn btn-default" id="btn" onclick="searchItem()">查询全部</button>
 
+    <!-- <div id="lists" class="alert alert-success" click="edit(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
+        <p style="width: 90%;display: inline-block;" id="${res[i]._id}">${res[i].content}</p>
+        <p class="pdelete" title="删除该数据" style=" display: inline-block;">
+            <button type="button" class="close">
+                <span aria-hidden="true" onclick="deleteItem('asldkfjasdfl')" nodeValue="${res[i]._id}">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+        </p>
+    </div> -->
+
     <script>
         //创建数据
         function ceateItem() {
@@ -39,19 +49,29 @@
 
         // 查询全部
         function searchItem() {
-            $(".content").empty();
             $.get('http://localhost:3000/search', function (res) {
                 console.log(res);
+                $(".content").empty();
                 for (var i = 0; i < res.length; i++) {
                     $(".content").append(`
                      <div id="lists" class="alert alert-success" click="edit(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
                      <p  style="width: 90%;display: inline-block;" id="${res[i]._id}" >${res[i].content}</p>
                     <p class="pdelete" title="删除该数据" style=" display: inline-block;">
-                        <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem()"  nodeValue="${res[i]._id}">×</span><span class="sr-only">Close</span></button>
+                        <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem(event)"  nodeValue="${res[i]._id}">×</span><span class="sr-only">Close</span></button>
                     </p>
                 </div>
                      `)
                 }
+            })
+        }
+
+        // 删除数据
+        function deleteItem(e) {
+            console.log(e.target.getAttribute('nodeValue'));
+            const id = e.target.getAttribute('nodeValue');
+            $.get('http://localhost:3000/destroy', {id:id}, function (res) {
+                console.log(res);
+                searchItem();
             })
         }
     </script>

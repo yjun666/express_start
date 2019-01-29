@@ -20,7 +20,8 @@ router.post('/create', function (req, res) {
     updated_at: Date.now()
   }).save(function (err, todo, count) { //保存数据
     console.log('内容', todo, '数量', count); //打印保存的数据
-    res.redirect('/'); //返回首页
+    res.send(todo + '添加成功');
+    // res.redirect('/'); //返回首页
   });
 });
 
@@ -59,7 +60,8 @@ router.get('/destroy', function (req, res) {
   //根据待办事项的id 来删除它
   TodoModel.findById(params.id, function (err, todo) {
     todo.remove(function (err, todo) {
-      res.redirect('/');
+      res.send('删除成功');
+      // res.redirect('/');
     });
   });
 })
