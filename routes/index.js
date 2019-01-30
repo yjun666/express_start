@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/create', function (req, res) {
-  console.log('req.body', req.body);
+  // console.log('req.body', req.body);
   new TodoModel({ // 实例化对象，新建数据
     content: req.body.content,
     updated_at: Date.now()
