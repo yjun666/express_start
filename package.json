@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www --host 10.111.70.80"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

@@ -26,11 +26,18 @@ router.post('/create', function (req, res) {
 });
 
 router.get('/search', function (req, res, next) {
+  console.log(req.cookies);
   TodoModel.
   find().
   sort('updated_at').
   exec(function (err, aa, count) {
-    res.send(aa);
+    var _callback = req.query.callback;
+    if (_callback) {
+      res.type('text/javascript');
+      res.send(_callback + '(' + JSON.stringify(aa) + ')');
+    } else {
+      res.send(aa);
+    }
   });
 });
 
