@@ -86,30 +86,30 @@
         function searchItem() {
 
 
-            // $.get('http://localhost:3000/search', function (res) {
-            //     console.log(res);
-            //     $(".content").empty();
-            //     for (var i = 0; i < res.length; i++) {
-            //         $(".content").append(`
-            //          <div id="lists" class="alert alert-success" click="edit(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
-            //          <p  style="width: 90%;display: inline-block;" id="${res[i]._id}" >${res[i].content}</p>
-            //         <p class="pdelete" title="删除该数据" style=" display: inline-block;">
-            //             <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem(event)"  nodeValue="${res[i]._id}">×</span><span class="sr-only">Close</span></button>
-            //         </p>
-            //     </div>
-            //          `)
-            //     }
-            // })
+            $.get('http://localhost:3000/search', function (res) {
+                console.log(res);
+                $(".content").empty();
+                for (var i = 0; i < res.length; i++) {
+                    $(".content").append(`
+                     <div id="lists" class="alert alert-success" click="edit(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
+                     <p  style="width: 90%;display: inline-block;" id="${res[i]._id}" >${res[i].content}</p>
+                    <p class="pdelete" title="删除该数据" style=" display: inline-block;">
+                        <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem(event)"  nodeValue="${res[i]._id}">×</span><span class="sr-only">Close</span></button>
+                    </p>
+                </div>
+                     `)
+                }
+            })
 
             $.ajax({
                     type: "GET",
                     url: 'http://localhost:3000/search',
             　　　　// 允许携带证书
-                    xhrFields: {
-                        withCredentials: true
-                    },
-            　　　　// 允许跨域
-                    crossDomain: true,
+            //         xhrFields: {
+            //             withCredentials: true
+            //         },
+            // 　　　　// 允许跨域
+            //         crossDomain: true,
                     success:(res)=>{
                         console.log(res);
                         $(".content").empty();

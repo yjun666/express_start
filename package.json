@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www --host 10.111.70.80"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -16,5 +16,9 @@
     "mongoose": "^5.4.6",
     "morgan": "~1.9.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "moment": "^2.24.0",
+    "multer": "^1.4.1"
   }
 }

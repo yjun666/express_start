@@ -8,6 +8,7 @@ var db = require('./db');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testJson = require('./routes/testJson');
+var upload = require('./routes/upload');
 
 var app = express();
 
@@ -15,12 +16,14 @@ app.all('*', function (req, res, next) {
   // res.header("Access-Control-Allow-Origin", "http://localhost:8474");
   // res.header("Access-Control-Allow-Origin", "http://10.111.70.80:4202");
   // res.header("Access-Control-Allow-Origin", "http://localhost:8877");
-  res.header("Access-Control-Allow-Origin", "http://localhost:1234");
+  // res.header("Access-Control-Allow-Origin", "http://localhost:1234");
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   // res.header("Access-Control-Allow-Origin", "http://10.111.70.80:1234");
   // res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  // res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization,Cookie');
   res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
@@ -41,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/testJson', testJson);
+app.use('/upload', upload);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
