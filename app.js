@@ -17,7 +17,8 @@ app.all('*', function (req, res, next) {
   // res.header("Access-Control-Allow-Origin", "http://10.111.70.80:4202");
   // res.header("Access-Control-Allow-Origin", "http://localhost:8877");
   // res.header("Access-Control-Allow-Origin", "http://localhost:1234");
-  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.header("Access-Control-Allow-Origin", "http://localhost:8903");
   // res.header("Access-Control-Allow-Origin", "http://10.111.70.80:1234");
   // res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');

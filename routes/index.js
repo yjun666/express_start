@@ -26,20 +26,22 @@ router.post('/create', function (req, res) {
 });
 
 router.get('/search', function (req, res, next) {
-  console.log(req.cookies,'cookies');
+  console.log(req.cookies, 'cookies');
   TodoModel.
   find().
   sort('updated_at').
-  exec(function (err, aa, count) {
+  exec(function (err, data, count) {
     var _callback = req.query.callback;
-    console.log(_callback,'callback');
+    console.log(_callback, 'callback');
     if (_callback) {
       res.type('text/javascript');
-      res.send(_callback + '(' + JSON.stringify(aa) + ')');
+      res.send(_callback + '(' + JSON.stringify({
+        "data": data
+      }) + ')');
     } else {
       res.send({
         "msg": '不是jsonp',
-        aa
+        data
       });
     }
   });

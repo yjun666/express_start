@@ -10,6 +10,22 @@
 </head>
 
 <body>
+    <input type="checkbox" id='test01' />
+    <button>点击</button>
+    <script>
+        const btn = document.querySelector('button');
+        btn.onclick = function () {
+            testBtn();
+        }
+
+        function testBtn() {
+            const test01 = document.querySelector('#test01');
+            console.log($('#test01').is(':checked'));
+            console.log(test01.getAttribute('checked'));
+        }
+        testBtn();
+    </script>
+
     <form class="initform" method="post" accept-charset="utf-8">
         <div class="from-group">
             <label>输入内容</label>
@@ -37,12 +53,12 @@
         localStorage.cookiess = 'asdfasdf';
 
         $.ajax({
-            url:'./test.json',
-            type:'GET',
-            success:()=>{
+            url: './test.json',
+            type: 'GET',
+            success: () => {
                 // alert('success');
             },
-            error:()=>{
+            error: () => {
                 alert('error');
             }
         })
@@ -61,40 +77,53 @@
                     type: "POST",
                     url: "http://localhost:3000/create",
                     data: obj,
-            　　　　// 允许携带证书
+                    // 允许携带证书
                     xhrFields: {
                         withCredentials: true
                     },
-            　　　　// 允许跨域
+                    // 允许跨域
                     crossDomain: true,
-                    success:()=>{
+                    success: () => {
                         alert('success');
                         searchItem();
                     },
-                    error:()=>{
+                    error: () => {
                         alert('asdfasfd');
                     }
                 })
 
 
-               } else {
+            } else {
                 alert('不能为空');
+            }
+        }
+
+        function jsonpShowData(res) {
+            console.log(res);
+            // $(".content").empty();
+            for (var i = 0; i < res.data.length; i++) {
+                $(".content").append(`
+                            <div id="lists" class="alert alert-success" click="edit(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
+                            <p  style="width: 90%;display: inline-block;" id="${res.data[i]._id}" >${res.data[i].content}</p>
+                            <p class="pdelete" title="删除该数据" style=" display: inline-block;">
+                                <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem(event)"  nodeValue="${res.data[i]._id}">×</span><span class="sr-only">Close</span></button>
+                            </p>
+                        </div>
+                            `)
             }
         }
 
         // 查询全部
         function searchItem() {
-
-
             $.get('http://localhost:3000/search', function (res) {
                 console.log(res);
                 $(".content").empty();
-                for (var i = 0; i < res.length; i++) {
+                for (var i = 0; i < res.data.length; i++) {
                     $(".content").append(`
                      <div id="lists" class="alert alert-success" click="edit(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
-                     <p  style="width: 90%;display: inline-block;" id="${res[i]._id}" >${res[i].content}</p>
+                     <p  style="width: 90%;display: inline-block;" id="${res.data[i]._id}" >${res.data[i].content}</p>
                     <p class="pdelete" title="删除该数据" style=" display: inline-block;">
-                        <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem(event)"  nodeValue="${res[i]._id}">×</span><span class="sr-only">Close</span></button>
+                        <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem(event)"  nodeValue="${res.data[i]._id}">×</span><span class="sr-only">Close</span></button>
                     </p>
                 </div>
                      `)
@@ -102,40 +131,61 @@
             })
 
             $.ajax({
-                    type: "GET",
-                    url: 'http://localhost:3000/search',
-            　　　　// 允许携带证书
-            //         xhrFields: {
-            //             withCredentials: true
-            //         },
-            // 　　　　// 允许跨域
-            //         crossDomain: true,
-                    success:(res)=>{
-                        console.log(res);
-                        $(".content").empty();
-                        for (var i = 0; i < res.length; i++) {
-                            $(".content").append(`
+                type: "GET",
+                url: 'http://localhost:3000/search',
+                // 允许携带证书
+                //         xhrFields: {
+                //             withCredentials: true
+                //         },
+                // 　　　　// 允许跨域
+                //         crossDomain: true,
+                success: (res) => {
+                    console.log(res);
+                    // $(".content").empty();
+                    for (var i = 0; i < res.data.length; i++) {
+                        $(".content").append(`
                             <div id="lists" class="alert alert-success" click="edit(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
-                            <p  style="width: 90%;display: inline-block;" id="${res[i]._id}" >${res[i].content}</p>
+                            <p  style="width: 90%;display: inline-block;" id="${res.data[i]._id}" >${res.data[i].content}</p>
                             <p class="pdelete" title="删除该数据" style=" display: inline-block;">
-                                <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem(event)"  nodeValue="${res[i]._id}">×</span><span class="sr-only">Close</span></button>
+                                <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem(event)"  nodeValue="${res.data[i]._id}">×</span><span class="sr-only">Close</span></button>
                             </p>
                         </div>
                             `)
-                        }
-                        alert('success');
-                    },
-                    error:()=>{
-                        alert('asdfasfd');
                     }
-                })
+                    alert('success');
+                },
+                error: () => {
+                    alert('asdfasfd');
+                }
+            })
+
+            // jsonp
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:3000/search?callback=jsonpShowData',
+                // 允许携带证书
+                //         xhrFields: {
+                //             withCredentials: true
+                //         },
+                // 　　　　// 允许跨域
+                //         crossDomain: true,
+                success: (res) => {
+                    eval(res);
+                    alert('success');
+                },
+                error: () => {
+                    alert('asdfasfd');
+                }
+            })
         }
 
         // 删除数据
         function deleteItem(e) {
             console.log(e.target.getAttribute('nodeValue'));
             const id = e.target.getAttribute('nodeValue');
-            $.get('http://localhost:3000/destroy', {id:id}, function (res) {
+            $.get('http://localhost:3000/destroy', {
+                id: id
+            }, function (res) {
                 console.log(res);
                 searchItem();
             })

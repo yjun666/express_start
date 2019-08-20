@@ -23,7 +23,4 @@ var ListSchema = new mongoose.Schema({
 mongoose.model('user', ListSchema); //将该Schema发布为Model,user就是集合名称
 
 
-
-
-
 module.exports = mongoose;
