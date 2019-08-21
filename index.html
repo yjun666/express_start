@@ -7,24 +7,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="./jquery-3.3.1.min.js"></script>
     <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        hr {
+            margin: 50px 0;
+        }
+    </style>
 </head>
 
 <body>
     <input type="checkbox" id='test01' />
     <button>点击</button>
     <script>
-        const btn = document.querySelector('button');
-        btn.onclick = function () {
+        {
+            // 测试可以获取input checked属性的方法
+            const btn = document.querySelector('button');
+            btn.onclick = function () {
+                testBtn();
+            }
+
+            function testBtn() {
+                const test01 = document.querySelector('#test01');
+                console.log($('#test01').is(':checked'));
+                console.log(test01.getAttribute('checked'));
+            }
             testBtn();
         }
-
-        function testBtn() {
-            const test01 = document.querySelector('#test01');
-            console.log($('#test01').is(':checked'));
-            console.log(test01.getAttribute('checked'));
-        }
-        testBtn();
     </script>
+
+    <hr>
 
     <form class="initform" method="post" accept-charset="utf-8">
         <div class="from-group">
@@ -49,6 +65,7 @@
     </div> -->
 
     <script>
+        // 操作mongo list/users表
         document.cookie = 'asdfll=asdfsdf';
         localStorage.cookiess = 'asdfasdf';
 
@@ -192,6 +209,7 @@
         }
     </script>
 
+    <hr>
 
     <form action="http://localhost:3000/testJson/add" method="post" id="myForm" target="frame1">
         <input type="text" name='id' value='123123'>
@@ -206,6 +224,7 @@
     <button id='get'>get</button>
 
     <script>
+        // 通过ajax操作public/json/test.json文件
         const add = document.querySelector('#add');
         const delet = document.querySelector('#delet');
         const change = document.querySelector('#change');
@@ -295,6 +314,165 @@
             })
         };
     </script>
+
+    <hr>
+
+    <form class="initform2" method="post" accept-charset="utf-8">
+        <div class="from-group2">
+            <label>输入内容</label>
+            <input class="form-control2 createContent2" type="text" name="content" placeholder="Enter Todo" />
+        </div>
+        <div class="from-group2" style="margin: 10px 0px;">
+            <button type="button" class="btn2 btn-info2" onclick="ceateItem2()">新增</button>
+        </div>
+    </form>
+    <div class="content2"></div>
+    <button class="btn2 btn-default2" id="btn2" onclick="searchItem2()">查询全部</button>
+
+    <!-- <div id="lists" class="alert alert-success" click="edit(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
+        <p style="width: 90%;display: inline-block;" id="${res[i]._id}">${res[i].content}</p>
+        <p class="pdelete" title="删除该数据" style=" display: inline-block;">
+            <button type="button" class="close">
+                <span aria-hidden="true" onclick="deleteItem('asldkfjasdfl')" nodeValue="${res[i]._id}">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+        </p>
+    </div> -->
+
+    <script>
+        // 操作mongo test/test表
+        document.cookie = 'asdfll=asdfsdf';
+        localStorage.cookiess = 'asdfasdf';
+
+        //创建数据
+        function ceateItem2() {
+            var obj = {};
+            obj.content = $('.createContent2').val();
+            if (obj.content != '') {
+                // $.post('http://localhost:3000/create', obj, function (res) {
+                //     console.log('新增成功');
+                //     searchItem();
+                // })
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3000/users/addDataToTest",
+                    data: obj,
+                    // 允许携带证书
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    // 允许跨域
+                    crossDomain: true,
+                    success: () => {
+                        alert('success');
+                        searchItem2();
+                    },
+                    error: () => {
+                        alert('asdfasfd');
+                    }
+                })
+
+
+            } else {
+                alert('不能为空');
+            }
+        }
+
+        function jsonpShowData2(res) {
+            console.log(res);
+            // $(".content").empty();
+            for (var i = 0; i < res.data.length; i++) {
+                $(".content2").append(`
+                            <div id="lists" class="alert alert-success" click="edit(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
+                            <p  style="width: 90%;display: inline-block;" id="${res.data[i]._id}" >${res.data[i].content}</p>
+                            <p class="pdelete" title="删除该数据" style=" display: inline-block;">
+                                <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem2(event)"  nodeValue="${res.data[i]._id}">×</span><span class="sr-only">Close</span></button>
+                            </p>
+                        </div>
+                            `)
+            }
+        }
+
+        // 查询全部
+        function searchItem2() {
+            $.get('http://localhost:3000/users/searchDataToTest', function (res) {
+                console.log(res);
+                $(".content2").empty();
+                for (var i = 0; i < res.data.length; i++) {
+                    $(".content2").append(`
+                     <div id="lists" class="alert alert-success" click="edit2(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
+                     <p  style="width: 90%;display: inline-block;" id="${res.data[i]._id}" >${res.data[i].content}</p>
+                    <p class="pdelete" title="删除该数据" style=" display: inline-block;">
+                        <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem2(event)"  nodeValue="${res.data[i]._id}">×</span><span class="sr-only">Close</span></button>
+                    </p>
+                </div>
+                     `)
+                }
+            })
+
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:3000/users/searchDataToTest',
+                // 允许携带证书
+                //         xhrFields: {
+                //             withCredentials: true
+                //         },
+                // 　　　　// 允许跨域
+                //         crossDomain: true,
+                success: (res) => {
+                    console.log(res);
+                    // $(".content").empty();
+                    for (var i = 0; i < res.data.length; i++) {
+                        $(".content2").append(`
+                            <div id="lists" class="alert alert-success" click="edit2(event)" style="padding: 0;height: 50px;line-height: 50px;padding-left: 10px;">
+                            <p  style="width: 90%;display: inline-block;" id="${res.data[i]._id}" >${res.data[i].content}</p>
+                            <p class="pdelete" title="删除该数据" style=" display: inline-block;">
+                                <button type="button" class="close"><span aria-hidden="true" onclick="deleteItem2(event)"  nodeValue="${res.data[i]._id}">×</span><span class="sr-only">Close</span></button>
+                            </p>
+                        </div>
+                            `)
+                    }
+                    alert('success');
+                },
+                error: () => {
+                    alert('asdfasfd');
+                }
+            })
+
+            // jsonp
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:3000/users/searchDataToTest?callback=jsonpShowData2',
+                // 允许携带证书
+                //         xhrFields: {
+                //             withCredentials: true
+                //         },
+                // 　　　　// 允许跨域
+                //         crossDomain: true,
+                success: (res) => {
+                    eval(res);
+                    alert('success');
+                },
+                error: () => {
+                    alert('asdfasfd');
+                }
+            })
+        }
+
+        // 删除数据
+        function deleteItem2(e) {
+            console.log(e.target.getAttribute('nodeValue'));
+            const id = e.target.getAttribute('nodeValue');
+            $.get('http://localhost:3000/users/destoryDataToTest', {
+                id: id
+            }, function (res) {
+                console.log(res);
+                searchItem2();
+            })
+        }
+    </script>
+
 </body>
 
 </html>

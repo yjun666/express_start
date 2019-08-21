@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var db = require('./db');
+var multer = require('multer');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -13,13 +14,7 @@ var upload = require('./routes/upload');
 var app = express();
 
 app.all('*', function (req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "http://localhost:8474");
-  // res.header("Access-Control-Allow-Origin", "http://10.111.70.80:4202");
-  // res.header("Access-Control-Allow-Origin", "http://localhost:8877");
-  // res.header("Access-Control-Allow-Origin", "http://localhost:1234");
-  // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-  res.header("Access-Control-Allow-Origin", "http://localhost:8903");
-  // res.header("Access-Control-Allow-Origin", "http://10.111.70.80:1234");
+  res.header("Access-Control-Allow-Origin", "http://localhost:8202");
   // res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
