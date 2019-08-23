@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-var mongoose = require('mongoose'); //引入对象
-var TodoModel = mongoose.model('studyTest'); //引入模型
+// var mongoose = require('mongoose'); //引入对象
+var db = require('../../db'); //引入对象
+var TodoModel = db.test.model('studyTest'); //引入模型
 var URL = require('url'); //引入URL中间件，获取req中的参数需要
 
 /* GET users listing. */
