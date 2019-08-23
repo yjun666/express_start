@@ -6,15 +6,15 @@ var logger = require('morgan');
 var db = require('./db');
 var multer = require('multer');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var userRouter = require('./routes/list/user');
+var studytest = require('./routes/test/studytest');
 var testJson = require('./routes/testJson');
 var upload = require('./routes/upload');
 
 var app = express();
 
 app.all('*', function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:8202");
+  res.header("Access-Control-Allow-Origin", "http://localhost:8317");
   // res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -37,8 +37,8 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
+app.use('/studytest', studytest);
 app.use('/testJson', testJson);
 app.use('/upload', upload);
 

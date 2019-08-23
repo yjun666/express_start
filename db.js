@@ -1,6 +1,6 @@
 var mongoose = require("mongoose"); //引入mongoose
-mongoose.connect('mongodb://localhost/list'); //连接到mongoDB的todo数据库
-mongoose.connect('mongodb://localhost/test'); //连接到mongoDB的todo数据库
+// mongoose.connect('mongodb://localhost/list'); //连接到mongoDB的todo数据库
+mongoose.connect('mongodb://127.0.0.1:27017/list'); //连接到mongoDB的todo数据库
 //该地址格式：mongodb://[username:password@]host:port/database[?options]
 //默认port为27017 
 
@@ -27,6 +27,7 @@ var ListSchema2 = new mongoose.Schema({
     updated_at: Date // 定义一个属性updated_at，类型为Date
 });
 mongoose.model('user', ListSchema); //将该Schema发布为Model,user就是集合名称
+mongoose.model('heros', ListSchema); //将该Schema发布为Model,user就是集合名称
 mongoose.model('studyTest', ListSchema2); //将该Schema发布为Model,user就是集合名称
 
 
