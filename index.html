@@ -89,10 +89,10 @@
                 //     console.log('新增成功');
                 //     searchItem();
                 // })
-
+                console.log(obj);
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:3000/user/create",
+                    url: "http://localhost:3000/list/create",
                     data: obj,
                     // 允许携带证书
                     xhrFields: {
@@ -132,7 +132,7 @@
 
         // 查询全部
         function searchItem() {
-            $.get('http://localhost:3000/user/search', function (res) {
+            $.get('http://localhost:3000/list/search', function (res) {
                 console.log(res);
                 $(".content").empty();
                 for (var i = 0; i < res.data.length; i++) {
@@ -149,7 +149,7 @@
 
             // $.ajax({
             //     type: "GET",
-            //     url: 'http://localhost:3000/user/search',
+            //     url: 'http://localhost:3000/list/search',
             //     // 允许携带证书
             //     //         xhrFields: {
             //     //             withCredentials: true
@@ -179,7 +179,7 @@
             // // jsonp
             // $.ajax({
             //     type: "GET",
-            //     url: 'http://localhost:3000/user/search?callback=jsonpShowData',
+            //     url: 'http://localhost:3000/list/search?callback=jsonpShowData',
             //     // 允许携带证书
             //     //         xhrFields: {
             //     //             withCredentials: true
@@ -200,7 +200,7 @@
         function deleteItem(e) {
             console.log(e.target.getAttribute('nodeValue'));
             const id = e.target.getAttribute('nodeValue');
-            $.get('http://localhost:3000/user/destroy', {
+            $.get('http://localhost:3000/list/destroy', {
                 id: id
             }, function (res) {
                 console.log(res);
@@ -471,6 +471,29 @@
                 searchItem2();
             })
         }
+
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/list/createHero",
+            data: {
+                content: 'asfasaaaaaadf',
+                id: 'asdfasdfasdf' + String(Math.random() * 100000000),
+                name: 'qweqwe',
+                value: 12333,
+                age: 123,
+            },
+            // 允许携带证书
+            xhrFields: {
+                withCredentials: true
+            },
+            // 允许跨域
+            crossDomain: true,
+            success: () => { },
+            error: () => {
+                console.error('http://localhost:3000/list/createHero' + '报错了');
+            }
+        })
     </script>
 
 </body>

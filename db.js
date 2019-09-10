@@ -34,19 +34,31 @@ test.once('open', function callback() { //监听一次打开
 });
 
 
-var ListSchema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
     user_id: String, // 定义一个属性user_id，类型为String
     content: String, // 定义一个属性content，类型为String
     updated_at: Date // 定义一个属性updated_at，类型为Date
 });
-var ListSchema2 = new mongoose.Schema({
+
+// 定义模型类型，即都需要存储哪些字段数据
+var HeroSchema = new mongoose.Schema({
+    user_id: String, // 定义一个属性user_id，类型为String
+    content: String, // 定义一个属性content，类型为String
+    name: String, // 定义name字段
+    value: Number, // 定义一个value字段
+    age: Number, // 定义一个age字段
+    id: String, // 定义一个id字段
+    updated_at: Date // 定义一个属性updated_at，类型为Date
+});
+
+var StudyTestSchema = new mongoose.Schema({
     user_id: String, // 定义一个属性user_id，类型为String
     content: String, // 定义一个属性content，类型为String
     updated_at: Date // 定义一个属性updated_at，类型为Date
 });
-list.model('user', ListSchema); //将该Schema发布为Model,user就是集合名称
-list.model('heros', ListSchema); //将该Schema发布为Model,user就是集合名称
-test.model('studyTest', ListSchema2); //将该Schema发布为Model,user就是集合名称
+list.model('user', UserSchema); //将该Schema发布为Model,user就是集合名称
+list.model('hero', HeroSchema); //将该Schema发布为Model,hero就是集合名称
+test.model('studyTest', StudyTestSchema); //将该Schema发布为Model,user就是集合名称
 
 
 module.exports = {

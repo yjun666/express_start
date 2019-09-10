@@ -7,6 +7,7 @@ var db = require('./db');
 var multer = require('multer');
 
 var userRouter = require('./routes/list/user');
+var heroRouter = require('./routes/list/hero');
 var studytest = require('./routes/test/studytest');
 var testJson = require('./routes/testJson');
 var upload = require('./routes/upload');
@@ -14,7 +15,7 @@ var upload = require('./routes/upload');
 var app = express();
 
 app.all('*', function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:8317");
+  res.header("Access-Control-Allow-Origin", "http://localhost:8860");
   // res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -37,7 +38,8 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/user', userRouter);
+app.use('/list', userRouter);
+app.use('/list', heroRouter);
 app.use('/studytest', studytest);
 app.use('/testJson', testJson);
 app.use('/upload', upload);
