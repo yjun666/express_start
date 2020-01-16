@@ -20,7 +20,10 @@ router.post('/createHero', function (req, res) {
         obj
     ).save(function (err, todo, count) { //保存数据
         console.log('内容', todo, '数量', count); //打印保存的数据
-        res.send(todo + '添加成功');
+        res.send({
+            todo,
+            "msg": '添加成功'
+        });
         // res.redirect('/'); //返回首页
     });
 });
@@ -73,7 +76,9 @@ router.get('/destroyHero', function (req, res) {
     //根据待办事项的id 来删除它
     TodoModel.findById(params.id, function (err, todo) {
         todo.remove(function (err, todo) {
-            res.send('删除成功');
+            res.send({
+                "msg": '删除成功'
+            });
             // res.redirect('/');
         });
     });

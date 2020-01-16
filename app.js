@@ -15,7 +15,9 @@ var upload = require('./routes/upload');
 var app = express();
 
 app.all('*', function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:8860");
+  // res.header("Access-Control-Allow-Origin", "http://localhost:8291");
+  res.header("Access-Control-Allow-Origin", "http://localhost:4108");
+  // res.header("Access-Control-Allow-Origin", "http://localhost:8173");
   // res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header("Access-Control-Allow-Headers", "X-Requested-With");

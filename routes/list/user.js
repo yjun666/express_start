@@ -18,7 +18,11 @@ router.post('/create', function (req, res) {
     updated_at: Date.now()
   }).save(function (err, todo, count) { //保存数据
     console.log('内容', todo, '数量', count); //打印保存的数据
-    res.send(todo + '添加成功');
+    // res.send(todo + '添加成功');
+    res.send({
+      "msg": "添加成功",
+      todo
+    });
     // res.redirect('/'); //返回首页
   });
 });
