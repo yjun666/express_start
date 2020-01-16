@@ -75,7 +75,9 @@ router.get('/destroy', function (req, res) {
   //根据待办事项的id 来删除它
   TodoModel.findById(params.id, function (err, todo) {
     todo.remove(function (err, todo) {
-      res.send('删除成功');
+      res.send({
+        "msg": '删除成功'
+      });
       // res.redirect('/');
     });
   });
