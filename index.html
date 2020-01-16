@@ -21,6 +21,7 @@
 </head>
 
 <body>
+    <img src="http://localhost:8080/uploads/1.jpg" style="width:30px;height:auto;" alt=""> <!-- 使用本机webDav服务器上的图片文件 -->
     <input type="checkbox" id='test01' />
     <button>点击</button>
     <script>
@@ -489,7 +490,7 @@
             },
             // 允许跨域
             crossDomain: true,
-            success: () => { },
+            success: () => {},
             error: () => {
                 console.error('http://localhost:3000/list/createHero' + '报错了');
             }
